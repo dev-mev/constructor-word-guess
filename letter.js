@@ -1,13 +1,19 @@
-const Letter = function () {
-  this.character = "";
-  this.guessed = false;
+const Letter = function (character) {
+  this.character = character;
+  this.correctGuess = false;
 };
 
 Letter.prototype.toString = function () {
-  // TODO: display letter, if guessed, or underscore
+  if (this.correctGuess) {
+    return this.character;
+  }
+  return "_";
 };
 
-Letter.prototype.displayLetters = function (letter) {
-  // TODO:  takes a character as an argument and checks it against the underlying
-  // character, updating the stored boolean value to true if it was guessed correctly
+Letter.prototype.checkLetter = function (checkGuess) {
+  if (this.character === checkGuess) {
+    this.correctGuess = true;
+  }
 };
+
+module.exports = Letter;

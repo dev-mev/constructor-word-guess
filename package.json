@@ -13,6 +13,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "inquirer": "^6.2.0",
+    "request": "^2.85.0"
+  },
   "bugs": {
     "url": "https://github.com/dev-mev/constructor-word-guess/issues"
   },
