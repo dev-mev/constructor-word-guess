@@ -1,11 +1,9 @@
 const inquirer = require("inquirer");
 const Word = require("./word");
 
-const words = ["Halloween", "spooky", "scary"];
+const words = ["Halloween", "spooky", "scary", "pumpkin", "candy", "costume"];
 const randWord = words[Math.floor(Math.random() * words.length)].toLowerCase();
-
 const currentWord = new Word(randWord);
-console.log(currentWord.letters);
 console.log(currentWord.toString());
 
 function promptGuess() {
@@ -24,6 +22,9 @@ function promptGuess() {
     ]).then(function (answers) {
       currentWord.guess(answers.guess);
       console.log(currentWord.toString());
+      if (currentWord.allLettersGuessed === false) {
+        promptGuess();
+      } else { console.log("You win!"); }
     });
 }
 
