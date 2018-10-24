@@ -1,12 +1,19 @@
 const inquirer = require("inquirer");
 const Word = require("./word");
 
-const words = ["Halloween", "spooky", "scary", "pumpkin", "candy", "costume"];
-const randWord = words[Math.floor(Math.random() * words.length)].toLowerCase();
-const currentWord = new Word(randWord);
-console.log(currentWord.toString());
+const words = ["class", "function", "operand", "truthy", "falsy", "scope", "syntax", "parameter", "argument", "modulo"];
+let currentWord;
+let guessesRemaining;
+
+function startGame() {
+  guessesRemaining = 10;
+  currentWord = new Word(words[Math.floor(Math.random() * words.length)].toLowerCase());
+  promptGuess();
+}
 
 function promptGuess() {
+  console.log("\nGuesses remaining: " + guessesRemaining);
+  console.log(currentWord.toString());
   inquirer
     .prompt([
       {
@@ -20,12 +27,20 @@ function promptGuess() {
         }
       }
     ]).then(function (answers) {
-      currentWord.guess(answers.guess);
-      console.log(currentWord.toString());
-      if (currentWord.allLettersGuessed === false) {
-        promptGuess();
-      } else { console.log("You win!"); }
+      if (guessesRemaining > 1) {
+        if (currentWord.guess(answers.guess.toLowerCase()) === false) {
+          console.log("There is no " + answers.guess);
+          guessesRemaining--;
+        }
+        if (currentWord.allLettersGuessed === false) {
+          promptGuess();
+        } else {
+          console.log("\n" + currentWord);
+          console.log("\nYou win! Let's play again!");
+          startGame();
+        }
+      } else { console.log("You are out of guesses."); }
     });
 }
 
-promptGuess();
+startGame();

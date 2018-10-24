@@ -5,7 +5,6 @@ const Word = function (word) {
   for (const character of word.split("")) {
     this.letters.push(new Letter(character));
   }
-
   this.allLettersGuessed = false;
 };
 
@@ -14,13 +13,19 @@ Word.prototype.toString = function () {
 };
 
 Word.prototype.guess = function (characterGuessed) {
+  let wasLetterCorrect = false;
   for (const letter of this.letters) {
     letter.checkLetter(characterGuessed);
+    if (letter.correctGuess === true && letter.character === characterGuessed) {
+      wasLetterCorrect = true;
+    }
   }
-  if (this.toString().includes("_")) {
-    return;
+
+  if (!this.toString().includes("_")) {
+    this.allLettersGuessed = true;
   }
-  this.allLettersGuessed = true;
+
+  return wasLetterCorrect;
 };
 
 module.exports = Word;
