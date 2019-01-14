@@ -1,2 +1,5 @@
 # constructor-word-guess
-Word Guess command-line game using constructor functions
+Command-line word guess game using node and constructor functions. Guess count goes down as you make a wrong guess. Words have a programming theme. Run Node index.js to get started.
+
+### Demo
+![alt text](/images/wordGuessDemo.png "Word Guess Demo")
